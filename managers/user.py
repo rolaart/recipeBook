@@ -12,7 +12,7 @@ from db import db
 # from utils.helpers import decode_photo
 
 
-class ComplainerManager:
+class CookManager:
     @staticmethod
     def register(cook_data):
         """

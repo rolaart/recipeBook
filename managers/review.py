@@ -1,6 +1,6 @@
 from db import db
 from models.review import ReviewModel
-from models.user import CritiqueModel
+from models.user import CritiqueModel, CookModel
 from models.recipe import RecipeModel
 from models.enums import Review
 
@@ -19,7 +19,7 @@ class ReviewManager:
         return RecipeModel.query.all()
 
     @staticmethod
-    def create(data, critique, recipe):
+    def create(data, critique):
         """
         Decode the base64 encoded photo,
         uploads it to s3 and set the photo url to
@@ -27,7 +27,6 @@ class ReviewManager:
         Creates a complaint and issues a transaction against it.
         Flushes the rows.
         """
-        data["recipe_id"] = recipe.id
         data["critique_id"] = critique.id
         r = Review(**data)
         db.session.add(r)
