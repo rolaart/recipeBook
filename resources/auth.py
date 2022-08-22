@@ -6,7 +6,7 @@ from managers.user import CookManager, CritiqueManager, AdminManager
 # from utils.decorators import validate_schema
 
 
-class RegisterComplainer(Resource):
+class RegisterCook(Resource):
     # @validate_schema(RequestRegisterComplainerSchema)
     def post(self):
         data = request.get_json()
@@ -14,7 +14,7 @@ class RegisterComplainer(Resource):
         return {"token": token}, 201
 
 
-class LoginComplainer(Resource):
+class LoginCook(Resource):
     # @validate_schema(RequestLoginUserSchema)
     @cross_origin()
     def post(self):
