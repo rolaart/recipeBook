@@ -7,7 +7,7 @@ class RecipeManager:
     @staticmethod
     def get_all_recipes(user):
         if isinstance(user, CookModel):
-            return CookModel.query.filter_by(cook_id=user.id).all()
+            return RecipeModel.query.filter_by(cook_id=user.id).all()
         return RecipeModel.query.all()
 
     @staticmethod
