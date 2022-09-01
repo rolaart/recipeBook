@@ -25,4 +25,4 @@ class RequestCreateAdimSchema(RequestRegisterUserSchema):
 
 
 class RequestCreateCritiqueSchema(RequestRegisterUserSchema):
-    certificate = fields.String(required=True)
+    certificate = fields.String()
