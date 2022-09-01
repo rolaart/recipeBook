@@ -5,11 +5,13 @@ from werkzeug.exceptions import BadRequest
 from werkzeug.security import check_password_hash, generate_password_hash
 
 # from constants import TEMP_FILE_FOLDER
+import temp_files
 from managers.auth import AuthManager
 from models.user import CookModel, CritiqueModel, AdministratorModel
 from db import db
 # from services.s3 import S3Service
 # from utils.helpers import decode_photo
+from utils.helpers import decode_photo
 
 
 class CookManager:
@@ -74,8 +76,8 @@ class UserManager:
         encoded_photo = data["certificate"]
         extension = data.pop("extension")
         name = f"{str(uuid.uuid4())}.{extension}"
-        # path = os.path.join(TEMP_FILE_FOLDER, f"{name}")
-        # decode_photo(path, encoded_photo)
+        path = os.path.join(temp_files, f"{name}")
+        decode_photo(path, encoded_photo)
         # url = s3.upload_photo(path, name, extension)
         # data["certificate"] = url
         critique = CritiqueModel(**data)
