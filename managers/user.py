@@ -4,8 +4,7 @@ import uuid
 from werkzeug.exceptions import BadRequest
 from werkzeug.security import check_password_hash, generate_password_hash
 
-# from constants import TEMP_FILE_FOLDER
-import temp_files
+from constraints import TEMP_FILE_FOLDER
 from managers.auth import AuthManager
 from models.user import CookModel, CritiqueModel, AdministratorModel
 from db import db
@@ -76,7 +75,7 @@ class UserManager:
         encoded_photo = data["certificate"]
         extension = data.pop("extension")
         name = f"{str(uuid.uuid4())}.{extension}"
-        path = os.path.join(temp_files, f"{name}")
+        path = os.path.join(TEMP_FILE_FOLDER, f"{name}")
         decode_photo(path, encoded_photo)
         # url = s3.upload_photo(path, name, extension)
         # data["certificate"] = url
