@@ -6,6 +6,7 @@ from resources.recipe import GoodReview, AverageReview, BadReview, RecipeListCre
 routes = (
     (RegisterCook, "/register"),
     (LoginCook, "/login"),
+    (RecipeListCreate, "/<int:id_>/list/recipe"),
     (LoginCritique, "/critique/login"),
     (GoodReview, "/critique/review/<int:id_>/good_review"),
     (AverageReview, "/critique/review/<int:id_>/average_review"),

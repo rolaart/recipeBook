@@ -7,9 +7,9 @@ from models.enums import RoleType
 from flask import request
 
 
-# from schemas.request.complain import RequestComplainSchema
-# from schemas.response.complain import ComplaintResponseSchema
-# from utils.decorators import permission_required, validate_schema
+from schemas.request.review import RequestReviewSchema
+from schemas.response.review import ReviewResponseSchema
+from utils.decorators import permission_required, validate_schema
 
 
 class ReviewListByReviewCreate(Resource):
@@ -21,14 +21,14 @@ class ReviewListByReviewCreate(Resource):
         for recipe in recipes:
             reviews.append(ReviewManager.get_all_reviews_per_recipe(recipe))
         # Use dump, not load when schema and object are not the same
-        # return ComplaintResponseSchema().dump(reviews, many=True)
+        return ReviewResponseSchema().dump(reviews, many=True)
 
     @auth.login_required
-    # @permission_required(RoleType.critique)
-    # @validate_schema(RequestComplainSchema)
+    @permission_required(RoleType.critique)
+    @validate_schema(RequestReviewSchema)
     def post(self):
         critique = auth.current_user()
         data = request.get_json()
         review = ReviewManager.create(data, critique)
         # Use dump, not load when schema and object are not the same
-        # return ComplaintResponseSchema().dump(review)
+        return ReviewResponseSchema().dump(review)

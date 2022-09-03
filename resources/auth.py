@@ -2,12 +2,12 @@ from flask_cors import cross_origin
 from flask_restful import Resource
 from flask import request
 from managers.user import CookManager, CritiqueManager, AdminManager
-# from schemas.request.user import RequestLoginUserSchema, RequestRegisterComplainerSchema
-# from utils.decorators import validate_schema
+from schemas.request.user import RequestLoginUserSchema, RequestRegisterCookSchema
+from utils.decorators import validate_schema
 
 
 class RegisterCook(Resource):
-    # @validate_schema(RequestRegisterComplainerSchema)
+    @validate_schema(RequestRegisterCookSchema)
     def post(self):
         data = request.get_json()
         token = CookManager.register(data)
@@ -15,7 +15,7 @@ class RegisterCook(Resource):
 
 
 class LoginCook(Resource):
-    # @validate_schema(RequestLoginUserSchema)
+    @validate_schema(RequestLoginUserSchema)
     @cross_origin()
     def post(self):
         data = request.get_json()
@@ -24,7 +24,7 @@ class LoginCook(Resource):
 
 
 class LoginCritique(Resource):
-    # @validate_schema(RequestLoginUserSchema)
+    @validate_schema(RequestLoginUserSchema)
     def post(self):
         data = request.get_json()
         token = CritiqueManager.login(data)
@@ -32,7 +32,7 @@ class LoginCritique(Resource):
 
 
 class LoginAdministrator(Resource):
-    # @validate_schema(RequestLoginUserSchema)
+    @validate_schema(RequestLoginUserSchema)
     def post(self):
         data = request.get_json()
         token = AdminManager.login(data)
