@@ -30,6 +30,12 @@ class RecipeListCreate(Resource):
         return RecipeResponseSchema().dump(recipe)
 
 
+class Recipe(Resource):
+    def get(self):
+        recipes = RecipeManager.get_all_recipes()
+        return RecipeResponseSchema().dump(recipes)
+
+
 class GoodReview(Resource):
     @auth.login_required
     @permission_required(RoleType.critique)
@@ -52,3 +58,10 @@ class BadReview(Resource):
     def put(self, id_, review):
         ReviewManager.bad_review(id_, review)
         return 200
+
+
+class DeleteRecipe(Resource):
+    @auth.login_required
+    def delete(self, id_):
+        RecipeManager.delete(id_)
+        return 204

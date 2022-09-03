@@ -20,7 +20,7 @@ class CookManager:
         :param cook_data: dict
         :return: cook
         """
-        cook_data["password"] = generate_password_hash(cook_data['password'], method='HS256')
+        cook_data["password"] = generate_password_hash(cook_data['password'], method='SHA256')
         cook = CookModel(**cook_data)
         try:
             db.session.add(cook)
@@ -53,7 +53,7 @@ class UserManager:
         :param cook_data: dict
         :return: cook
         """
-        data["password"] = generate_password_hash(data['password'], method='HS256')
+        data["password"] = generate_password_hash(data['password'], method='SHA256')
         admin = AdministratorModel(**data)
         try:
             db.session.add(admin)
@@ -69,7 +69,7 @@ class UserManager:
         :param cook_data: dict
         :return: critique
         """
-        data["password"] = generate_password_hash(data['password'], method='HS256')
+        data["password"] = generate_password_hash(data['password'], method='SHA256')
         s3 = S3Service()
         encoded_photo = data["certificate"]
         extension = data.pop("extension")

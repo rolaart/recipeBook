@@ -14,4 +14,4 @@ class RecipeModel(db.Model):
     steps = db.Column(db.String(255))
     cook_id = db.Column(db.Integer, db.ForeignKey('cooks.id'))
     cook = db.relationship('CookModel')
-    reviews = db.relationship('ReviewModel', db.backref('recipe'))
+    reviews = db.relationship('ReviewModel')

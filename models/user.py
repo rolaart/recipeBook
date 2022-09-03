@@ -16,7 +16,7 @@ class BaseUserModel(db.Model):
 class CookModel(BaseUserModel):
     __tablename__ = 'cooks'
 
-    cooks = db.relationship("RecipeModel", db.backref("cook"))
+    cooks = db.relationship("RecipeModel")
     role = db.Column(
         db.Enum(RoleType),
         default=RoleType.cook,
@@ -28,7 +28,7 @@ class CritiqueModel(BaseUserModel):
     __tablename__ = 'critiques'
 
     certificate = db.Column(db.String(255), nullable=False)
-    critiques = db.relationship("ReviewModel", db.backref("critique"))
+    critiques = db.relationship("ReviewModel")
     role = db.Column(
         db.Enum(RoleType),
         default=RoleType.critique,
