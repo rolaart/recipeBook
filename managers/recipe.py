@@ -5,6 +5,8 @@ from constraints import TEMP_FILE_FOLDER
 from db import db
 from models.user import CookModel
 from models.recipe import RecipeModel
+
+from services.s3 import S3Service
 from utils.helpers import decode_photo
 
 
@@ -27,11 +29,12 @@ class RecipeManager:
         data["cook_id"] = cook.id
         encoded_photo = data.pop("photo")
         extension = data.pop("photo_extension")
+        s3 = S3Service()
         name = f"{str(uuid.uuid4())}"
         path = os.path.join(TEMP_FILE_FOLDER, f"{name}.{extension}")
         decode_photo(path, encoded_photo)
-        # url = s3.upload_photo(path, name, extension)
-        # data["photo"] = url
+        url = s3.upload_photo(path, name, extension)
+        data["photo"] = url
         r = RecipeModel(**data)
         db.session.add(r)
         db.session.flush()

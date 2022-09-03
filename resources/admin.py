@@ -6,14 +6,14 @@ from managers.recipe import RecipeManager
 from managers.review import ReviewManager
 from managers.user import UserManager
 from models.enums import RoleType
-# from schemas.request.user import RequestCreateAdminSchema, RequestCreateApproverSchema
-# from utils.decorators import validate_schema, permission_required
+from schemas.request.user import RequestCreateCritiqueSchema, RequestCreateAdimSchema
+from utils.decorators import validate_schema, permission_required
 
 
 class CreateAdmin(Resource):
     @auth.login_required
-    # @permission_required(RoleType.admin)
-    # @validate_schema(RequestCreateAdminSchema)
+    @permission_required(RoleType.admin)
+    @validate_schema(RequestCreateAdimSchema)
     def post(self):
         data = request.get_json()
         UserManager.create_admin(data)
@@ -22,8 +22,8 @@ class CreateAdmin(Resource):
 
 class CreateCritique(Resource):
     @auth.login_required
-    # @permission_required(RoleType.admin)
-    # @validate_schema(RequestCreateApproverSchema)
+    @permission_required(RoleType.admin)
+    @validate_schema(RequestCreateCritiqueSchema)
     def post(self):
         data = request.get_json()
         # Here we add logic to store the certificate's photo in S3
@@ -33,7 +33,7 @@ class CreateCritique(Resource):
 
 class RecipeManagement(Resource):
     @auth.login_required
-    # @permission_required(RoleType.admin)
+    @permission_required(RoleType.admin)
     def delete(self, id_):
         RecipeManager.delete(id_)
         return 204
@@ -41,7 +41,7 @@ class RecipeManagement(Resource):
 
 class ReviewManagement(Resource):
     @auth.login_required
-    # @permission_required(RoleType.admin)
+    @permission_required(RoleType.admin)
     def delete(self, id_):
         ReviewManager.delete(id_)
         return 204
